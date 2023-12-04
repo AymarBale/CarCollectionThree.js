@@ -6,6 +6,12 @@ body {
     position: relative;
 }
 
+#barBody {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
 #leftBut {
     position: absolute;
     bottom: 50vh;
@@ -24,8 +30,8 @@ body {
     display: inline-block;
     width: 60px;
     height: 34px;
-    bottom: 0px;
-    right: 0px;
+    bottom: 5px;
+    left: 5px;
 }
 
 .switch input {

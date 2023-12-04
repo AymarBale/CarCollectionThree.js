@@ -1,9 +1,10 @@
 let scene, camera, renderer, hlight, directionalLight, light, light2, light3, light4, car, controls;
-let index = 5;
+let index = 0, progressBar;
 let collection = ['./3dFiles/car1/car1.gltf', './3dFiles/car2/scene.gltf',
     './3dFiles/car3/scene.gltf', './3dFiles/car4/scene.gltf', './3dFiles/car5/scene.gltf',
     './3dFiles/car6/scene.gltf']
 let path = collection[index];
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     // Now the changeCarL and changeCarR functions should be available
@@ -26,6 +27,7 @@ function toggleMusicPlayback() {
     }
 }
 function init() {
+
     /*let menuSound = document.getElementById("menuSound");
     menuSound.play();
     menuSound.volume = 0.1;*/
@@ -43,9 +45,7 @@ function init() {
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.addEventListener('change', render);
     hlight = new THREE.AmbientLight(0x404040, 10);
-
     scene.add(hlight);
-
     directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     directionalLight.position.set(0, 1, 0);
     directionalLight.castShadow = true;
@@ -56,8 +56,6 @@ function init() {
 
 
 function loadModel(modelPath) {
-    // Remove the existing car from the scene if it exists
-    console.log(index)
     if (car) {
         scene.remove(scene.children[2])
     }
@@ -109,10 +107,10 @@ function loadModel(modelPath) {
         scene.add(gltf.scene);
         animate();
     });
+    updateProgressBar();
 }
 function changeCarL() {
     if (index == 0) {
-
     } else if (index > 0) {
         index--;
         path = collection[index]
@@ -135,6 +133,21 @@ function animate() {
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 }
+
+function updateProgressBar() {
+    let arrBar = [document.getElementById("statBar1"), document.getElementById("statBar2"), document.getElementById("statBar3"), document.getElementById("statBar4"), document.getElementById("statBar5")]
+    for (let i = 0; i < arrBar.length; i++) {
+        progressBar = arrBar[i];
+        // Generate a random value between 0 and 100 for the progress
+        var randomValue = Math.floor(Math.random() * 101);
+        // Set the width of the progress bar based on the random value
+        progressBar.style = "--value: " + randomValue + ";--max: 100;";
+
+        // Update the text inside the progress bar to show the percentage
+        progressBar.innerHTML = randomValue;
+    }
+}
+
 
 
 init();
