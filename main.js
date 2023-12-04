@@ -22,6 +22,10 @@ function init() {
     directionalLight.position.set(0, 1, 0);
     directionalLight.castShadow = true;
     scene.add(directionalLight);
+    let collection = ['./3dFiles/car1/car1.gltf', './3dFiles/car2/scene.gltf',
+        './3dFiles/car3/scene.gltf', './3dFiles/car4/scene.gltf', './3dFiles/car5/scene.gltf',
+        './3dFiles/car6/scene.gltf']
+    let path = './3dFiles/car1/car1.gltf';
 
     /*light = new THREE.PointLight(0xc4c4c4, 10);
     light.position.set(0, 300, 500);
@@ -40,7 +44,7 @@ function init() {
     scene.add(light4);*/
 
     let loader = new THREE.GLTFLoader();
-    loader.load('./3dFiles/car1.gltf', function (gltf) {
+    loader.load(path, function (gltf) {
         car = gltf.scene.children[0];
         car.scale.set(39.5, 39.5, 39.5);
         scene.add(gltf.scene);

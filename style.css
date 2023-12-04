@@ -3,4 +3,16 @@ body {
     height: 100vh;
     margin: 0px;
     overflow: hidden;
+    position: relative;
+}
+
+#leftBut {
+    position: absolute;
+    bottom: 50vh;
+}
+
+#rightBut {
+    position: absolute;
+    bottom: 50vh;
+    right: 0px;
 }
