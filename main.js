@@ -1,6 +1,34 @@
 let scene, camera, renderer, hlight, directionalLight, light, light2, light3, light4, car, controls;
+let index = 5;
+let collection = ['./3dFiles/car1/car1.gltf', './3dFiles/car2/scene.gltf',
+    './3dFiles/car3/scene.gltf', './3dFiles/car4/scene.gltf', './3dFiles/car5/scene.gltf',
+    './3dFiles/car6/scene.gltf']
+let path = collection[index];
 
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Now the changeCarL and changeCarR functions should be available
+    document.getElementById('leftBut').addEventListener('click', changeCarL);
+    document.getElementById('rightBut').addEventListener('click', changeCarR);
+    document.getElementById('playSound').addEventListener('click', toggleMusicPlayback)
+
+
+});
+function toggleMusicPlayback() {
+    var audio = document.getElementById("menuSound");
+    audio.volume = 0.1
+    // Check if audio is paused or playing
+    if (audio.paused) {
+        // If paused, play the audio
+        audio.play(); // You can change the color or add an icon to indicate playback
+    } else {
+        // If playing, pause the audio
+        audio.pause(); // You can reset the color or icon
+    }
+}
 function init() {
+    /*let menuSound = document.getElementById("menuSound");
+    menuSound.play();
+    menuSound.volume = 0.1;*/
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xdddddd);
 
@@ -22,34 +50,83 @@ function init() {
     directionalLight.position.set(0, 1, 0);
     directionalLight.castShadow = true;
     scene.add(directionalLight);
-    let collection = ['./3dFiles/car1/car1.gltf', './3dFiles/car2/scene.gltf',
-        './3dFiles/car3/scene.gltf', './3dFiles/car4/scene.gltf', './3dFiles/car5/scene.gltf',
-        './3dFiles/car6/scene.gltf']
-    let path = './3dFiles/car1/car1.gltf';
 
-    /*light = new THREE.PointLight(0xc4c4c4, 10);
-    light.position.set(0, 300, 500);
-    scene.add(light);
+    loadModel(path);
+}
 
-    light2 = new THREE.PointLight(0xc4c4c4, 10);
-    light2.position.set(500, 100, -500);
-    scene.add(light2);
 
-    light3 = new THREE.PointLight(0xc4c4c4, 10);
-    light3.position.set(0, 300, -500);
-    scene.add(light3);
-
-    light4 = new THREE.PointLight(0xc4c4c4, 10);
-    light4.position.set(-500, 300, 0);
-    scene.add(light4);*/
+function loadModel(modelPath) {
+    // Remove the existing car from the scene if it exists
+    console.log(index)
+    if (car) {
+        scene.remove(scene.children[2])
+    }
 
     let loader = new THREE.GLTFLoader();
-    loader.load(path, function (gltf) {
+    loader.load(modelPath, function (gltf) {
         car = gltf.scene.children[0];
-        car.scale.set(39.5, 39.5, 39.5);
+        let s = 100
+        switch (index) {
+            case 0:
+                car.rotation.y += 10.9;
+                car.position.y -= 100;
+                s = 80.5
+                break;
+            case 1:
+                car.position.y -= 100;
+                s = 450;
+                break
+            case 2:
+                car.position.y -= 100;
+                s = 200;
+                break;
+            case 3:
+                car.position.y += 10;
+                car.position.x += 100
+                car.rotation.z += 14.25
+                s = 300;
+                break;
+            case 4:
+                car.position.x += 1000;
+                car.position.y -= 180;
+                s = 50
+                break;
+            case 5:
+                car.position.x += 100;
+                car.position.z -= 1300;
+                car.position.y -= 180;
+                car.rotation.z -= 74
+                s = 50;
+                break;
+
+            default:
+
+        }
+
+
+        car.scale.set(s, s, s);
+
         scene.add(gltf.scene);
         animate();
-    })
+    });
+}
+function changeCarL() {
+    if (index == 0) {
+
+    } else if (index > 0) {
+        index--;
+        path = collection[index]
+        loadModel(path);
+    }
+
+}
+
+function changeCarR() {
+    if (index <= 4) {
+        index++;
+        path = collection[index]
+        loadModel(path);
+    }
 }
 function render() {
     renderer.render(scene, camera);

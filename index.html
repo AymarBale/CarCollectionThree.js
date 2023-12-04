@@ -21,11 +21,17 @@
     <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <audio src="sound/menuMusic.mp3" id="menuSound"></audio>
     <script type="module" src="/main.js"></script>
     <button class="button-50" id="leftBut" role="button">
-        < </button>
+        &lt; </button>
 
-            <button class="button-50" id="rightBut" role="button">></button>
+    <button class="button-50" id="rightBut" role="button"> &gt;</button>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round" id="playSound"></span>
+    </label>
+
 </body>
 
 </html>
